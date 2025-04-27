@@ -1,44 +1,44 @@
 const express = require("express");
-// const { OpenAI } = require("openai");
-// const { createClient } = require("@supabase/supabase-js");
-// const dotenv = require("dotenv");
+const { OpenAI } = require("openai");
+const { createClient } = require("@supabase/supabase-js");
+const dotenv = require("dotenv");
 
-// // Load environment variables from a .env file
-// dotenv.config();
+// Load environment variables from a .env file
+dotenv.config();
 
-// // Initialize Supabase client
-// const supabase = createClient(
-//   process.env.SUPABASE_URL,
-//   process.env.SUPABASE_SERVICE_ROLE_KEY
-// );
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
-// // Initialize OpenAI client
-// const openai = new OpenAI({
-//   apiKey: process.env.OPENAI_API_KEY, // Ensure this environment variable is set
-// });
+// Initialize OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Ensure this environment variable is set
+});
 
 const app = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-// async function createEmbedding(input) {
-//   try {
-//     // Generate vector embedding from input text
-//     const { data: embeddingData } = await openai.embeddings.create({
-//       model: "text-embedding-ada-002",
-//       input,
-//     });
+async function createEmbedding(input) {
+  try {
+    // Generate vector embedding from input text
+    const { data: embeddingData } = await openai.embeddings.create({
+      model: "text-embedding-ada-002",
+      input,
+    });
 
-//     if (!embeddingData || !embeddingData[0]?.embedding) {
-//       throw new Error("Failed to generate embedding.");
-//     }
+    if (!embeddingData || !embeddingData[0]?.embedding) {
+      throw new Error("Failed to generate embedding.");
+    }
 
-//     return embeddingData[0].embedding;
-//   } catch (err) {
-//     console.error("Error in createEmbedding function:", err.message);
-//     throw err;
-//   }
-// }
+    return embeddingData[0].embedding;
+  } catch (err) {
+    console.error("Error in createEmbedding function:", err.message);
+    throw err;
+  }
+}
 
 // async function findNearestMatch(embedding) {
 //   try {
