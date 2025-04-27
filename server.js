@@ -112,7 +112,7 @@ async function main(input) {
 
 // POST endpoint for generating vector match
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   res.send("Welcome to the Movie Recommendation API!");
 });
 
