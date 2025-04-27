@@ -72,43 +72,43 @@ const chatMessages = [
   },
 ];
 
-// async function getChatCompletion(text, query) {
-//   try {
-//     chatMessages.push({
-//       role: "user",
-//       content: `Context: ${text} Question: ${query}`,
-//     });
+async function getChatCompletion(text, query) {
+  try {
+    chatMessages.push({
+      role: "user",
+      content: `Context: ${text} Question: ${query}`,
+    });
 
-//     const { choices } = await openai.chat.completions.create({
-//       model: "gpt-4",
-//       messages: chatMessages,
-//       temperature: 0.65,
-//       frequency_penalty: 0.5,
-//     });
+    const { choices } = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: chatMessages,
+      temperature: 0.65,
+      frequency_penalty: 0.5,
+    });
 
-//     const responseMessage = choices[0].message;
-//     chatMessages.push(responseMessage);
-//     console.log("Chat Response:", responseMessage.content);
-//     return responseMessage.content;
-//   } catch (error) {
-//     console.error("Error in getChatCompletion function:", error.message);
-//     throw new Error("Failed to generate a conversational response.");
-//   }
-// }
+    const responseMessage = choices[0].message;
+    chatMessages.push(responseMessage);
+    console.log("Chat Response:", responseMessage.content);
+    return responseMessage.content;
+  } catch (error) {
+    console.error("Error in getChatCompletion function:", error.message);
+    throw new Error("Failed to generate a conversational response.");
+  }
+}
 
-// async function main(input) {
-//   try {
-//     console.log("Thinking...");
-//     const embedding = await createEmbedding(input); // Reuse existing function
-//     const match = await findNearestMatch(embedding); // Reuse existing function
-//     const response = await getChatCompletion(match, input); // Reuse existing function
-//     console.log("Response:", response);
-//     return response;
-//   } catch (error) {
-//     console.error("Error in main function.", error.message);
-//     throw new Error("Sorry, something went wrong. Please try again.");
-//   }
-// }
+async function main(input) {
+  try {
+    console.log("Thinking...");
+    const embedding = await createEmbedding(input); // Reuse existing function
+    const match = await findNearestMatch(embedding); // Reuse existing function
+    const response = await getChatCompletion(match, input); // Reuse existing function
+    console.log("Response:", response);
+    return response;
+  } catch (error) {
+    console.error("Error in main function.", error.message);
+    throw new Error("Sorry, something went wrong. Please try again.");
+  }
+}
 
 // POST endpoint for generating vector match
 
