@@ -116,33 +116,33 @@ app.get("/", async (req, res) => {
   res.send("Welcome to the Movie Recommendation API!");
 });
 
-// app.post("/match", async (req, res) => {
-//   const { input } = req.body;
+app.post("/match", async (req, res) => {
+  const { input } = req.body;
 
-//   // Check if input is provided
-//   if (!input || typeof input !== "string") {
-//     return res
-//       .status(400)
-//       .json({ error: "Input is required and must be a string." });
-//   }
+  // Check if input is provided
+  if (!input || typeof input !== "string") {
+    return res
+      .status(400)
+      .json({ error: "Input is required and must be a string." });
+  }
 
-//   try {
-//     // Call the main function
-//     const result = await main(input);
+  try {
+    // Call the main function
+    const result = await main(input);
 
-//     if (!result) {
-//       return res
-//         .status(500)
-//         .json({ error: "An error occurred while processing the input." });
-//     }
+    if (!result) {
+      return res
+        .status(500)
+        .json({ error: "An error occurred while processing the input." });
+    }
 
-//     // Send the results back to the client
-//     return res.status(200).json(result);
-//   } catch (err) {
-//     console.error("Error in POST endpoint:", err.message);
-//     return res.status(500).json({ error: "Internal server error." });
-//   }
-// });
+    // Send the results back to the client
+    return res.status(200).json(result);
+  } catch (err) {
+    console.error("Error in POST endpoint:", err.message);
+    return res.status(500).json({ error: "Internal server error." });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
