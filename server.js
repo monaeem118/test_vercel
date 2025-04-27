@@ -40,37 +40,37 @@ async function createEmbedding(input) {
   }
 }
 
-// async function findNearestMatch(embedding) {
-//   try {
-//     // Query Supabase for nearest vector match
-//     const { data, error } = await supabase.rpc("match_movies", {
-//       query_embedding: embedding,
-//       match_threshold: 0.5,
-//       match_count: 3,
-//     });
+async function findNearestMatch(embedding) {
+  try {
+    // Query Supabase for nearest vector match
+    const { data, error } = await supabase.rpc("match_movies", {
+      query_embedding: embedding,
+      match_threshold: 0.5,
+      match_count: 3,
+    });
 
-//     if (error) {
-//       throw new Error(`Supabase query failed: ${error.message}`);
-//     }
+    if (error) {
+      throw new Error(`Supabase query failed: ${error.message}`);
+    }
 
-//     const match = data.map((obj) => obj.content).join("\n");
-//     return match;
-//   } catch (err) {
-//     console.error("Error in findNearestMatch function:", err.message);
-//     throw err;
-//   }
-// }
-// const chatMessages = [
-//   {
-//     role: "system",
-//     content: `You are an enthusiastic movie expert who loves recommending movies to people.
-//       You will be given two pieces of information - some context about movies and a question.
-//       Your main job is to formulate a short answer to the question using the provided context.
-//       If the answer is not given in the context, find the answer in the conversation history if possible.
-//       If you are unsure and cannot find the answer, say, "Sorry, I don't know the answer."
-//       Please do not make up the answer. Always speak as if you were chatting to a friend.`,
-//   },
-// ];
+    const match = data.map((obj) => obj.content).join("\n");
+    return match;
+  } catch (err) {
+    console.error("Error in findNearestMatch function:", err.message);
+    throw err;
+  }
+}
+const chatMessages = [
+  {
+    role: "system",
+    content: `You are an enthusiastic movie expert who loves recommending movies to people.
+      You will be given two pieces of information - some context about movies and a question.
+      Your main job is to formulate a short answer to the question using the provided context.
+      If the answer is not given in the context, find the answer in the conversation history if possible.
+      If you are unsure and cannot find the answer, say, "Sorry, I don't know the answer."
+      Please do not make up the answer. Always speak as if you were chatting to a friend.`,
+  },
+];
 
 // async function getChatCompletion(text, query) {
 //   try {
