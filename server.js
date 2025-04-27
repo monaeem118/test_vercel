@@ -2,6 +2,17 @@ const express = require("express");
 const { OpenAI } = require("openai");
 const { createClient } = require("@supabase/supabase-js");
 const dotenv = require("dotenv");
+const cors = require("cors");
+
+// Enable CORS for all origins
+const corsOptions = {
+  origin: "*", // Allow all origins
+  methods: ["GET", "POST"], // Allow only GET and POST methods
+  allowedHeaders: ["Content-Type"], // Allow only Content-Type header
+};
+
+// Initialize Express app
+const app = express();
 
 // Load environment variables from a .env file
 dotenv.config();
@@ -17,7 +28,10 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // Ensure this environment variable is set
 });
 
-const app = express();
+app.use(cors(corsOptions)); // Use CORS middleware
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.static("public")); // Serve static files from the "public" directory
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
